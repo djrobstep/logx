@@ -1,0 +1,6 @@
+pytest
+pytest-cov
+pyyaml
+logging_tree
+flake8
+twine
