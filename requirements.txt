@@ -4,3 +4,4 @@ pyyaml
 logging_tree
 flake8
 twine
+black

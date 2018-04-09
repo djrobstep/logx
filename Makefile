@@ -1,4 +1,4 @@
-targs = --cov-report term-missing --cov logx
+targs = --cov-report term-missing --cov logx --cov logxutil
 
 pip:
 	pip install -r requirements.txt
@@ -6,9 +6,11 @@ pip:
 test:
 	pytest $(targs)
 
+fmt:
+	black .
+
 lint:
-	flake8 logx
-	flake8 tests
+	flake8 .
 
 clean:
 	git clean -fXd
