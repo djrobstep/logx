@@ -16,7 +16,7 @@ def load_env_yaml(path=None):
     try:
         with io.open(path) as r:
             log.info(f"loading env vars from yaml: {path}")
-            env_vars = yaml.load(r)
+            env_vars = yaml.load(r, Loader=yaml.FullLoader)
             os.environ.update(env_vars)
     except FileNotFoundError:
         log.info(f"local env file not found at {path}, not loading")
