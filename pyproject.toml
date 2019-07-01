@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "logx"
+packages = [
+    { include = "logx" },
+    { include = "logxutil" },
+]
+version = "0.1"
+authors = [ "Robert Lechte <robertlechte@gmail.com>",]
+license = "Unlicense"
+readme = "README.md"
+description = "best practice python logging with zero config"
+
+repository = "https://github.com/djrobstep/logx"
+homepage = "https://github.com/djrobstep/logx"
+
+[tool.poetry.dependencies]
+python = "*"
+pyyaml = "*"
+logging_tree = "*"
+
+[tool.poetry.dev-dependencies]
+sqlbag = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-xdist = "*"
+tox = "*"
+flake8 = "*"
+twine = "*"
+wheel = "*"
+isort = "*"
+black = {python=">3.6", version=">=18.9b0", allow_prereleases=true}
