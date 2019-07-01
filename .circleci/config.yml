@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "pyproject.toml" }}
+          key: deps2-{{ .Branch }}-{{ checksum "pyproject.toml" }}
       - run:
           name: Install poetry
           command: |
@@ -15,22 +15,22 @@ jobs:
             poetry config settings.virtualenvs.create false
       - run:
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
+            python3 -m venv ~/.venv
+            . ~/.venv/bin/activate
 
             poetry install
       - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "pyproject.toml" }}
+          key: deps2-{{ .Branch }}-{{ checksum "pyproject.toml" }}
           paths:
-            - "venv"
+            - "~/.venv"
       - run:
           name: Check formatting
           command: |
-            . venv/bin/activate
+            . ~/.venv/bin/activate
             make lint
       - run:
           command: |
-            . venv/bin/activate
+            . ~/.venv/bin/activate
             make test
       - store_artifacts:
           path: test-reports/
@@ -50,13 +50,13 @@ jobs:
           command: |
             sudo pip3 install poetry
             poetry config settings.virtualenvs.create false
-            python3 -m venv venv
-            . venv/bin/activate
+            python3 -m venv /venv
+            . ~/.venv/bin/activate
             poetry install
       - run:
           name: Bump version, build, install
           command: |
-            . venv/bin/activate
+            . ~/.venv/bin/activate
             python deploy/vbump.py
             poetry build
             poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
