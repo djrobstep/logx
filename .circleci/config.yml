@@ -9,9 +9,6 @@ jobs:
       - restore_cache:
           key: deps1-{{ .Branch }}-{{ checksum "pyproject.toml" }}
       - run:
-          name: Wait for db
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run:
           name: Install poetry
           command: |
             sudo pip3 install poetry
