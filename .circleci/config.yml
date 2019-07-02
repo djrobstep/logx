@@ -44,13 +44,13 @@ jobs:
       - setup_remote_docker
       - checkout
       - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "pyproject.toml" }}
+          key: deps2-{{ .Branch }}-{{ checksum "pyproject.toml" }}
       - run:
           name: Install poetry, deps
           command: |
             sudo pip3 install poetry
             poetry config settings.virtualenvs.create false
-            python3 -m venv /venv
+            python3 -m venv ~/.venv
             . ~/.venv/bin/activate
             poetry install
       - run:
