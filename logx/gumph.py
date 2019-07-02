@@ -1,4 +1,3 @@
-
 import sys
 import logging
 import logging.config
@@ -9,7 +8,9 @@ import yaml
 from .logxintrospect import get_nicest_module_name
 
 YAML_CONFIG_PATH = "loggers.yaml"
-DEFAULT_FORMAT = "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
+DEFAULT_FORMAT = (
+    "[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s"
+)
 
 
 def load_yaml_config(yaml_config_path=YAML_CONFIG_PATH):
@@ -20,7 +21,6 @@ def load_yaml_config(yaml_config_path=YAML_CONFIG_PATH):
 
 
 class StdHandler(logging.Handler):
-
     def emit(self, record):
         msg = self.format(record)
         if record.levelno >= logging.WARNING:
@@ -52,8 +52,7 @@ def print_diagram():
     logging_tree.printout()
 
 
-class Log():
-
+class Log:
     def __init__(self):
         self.handlers = {}
 

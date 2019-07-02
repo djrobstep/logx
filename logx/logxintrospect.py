@@ -1,9 +1,7 @@
-
 import inspect
 
 
 def get_calling_module(name=None, top_level_only=True):
-
     def top_module(mname):
         if top_level_only:
             return mname.split(".")[0]
