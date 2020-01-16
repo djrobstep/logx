@@ -94,7 +94,7 @@ class Log:
 
         raise KeyError("no logx-related handler found on this logger")
 
-    def set_format(self, formatstring, logger_name=None, top_level=True):
+    def set_format(self, formatstring, logger_name=None, top_level=True, datefmt=None):
         logger_name = logger_name or self.current_logger_name()
         if top_level:
             logger_name = logger_name.split(".")[0]
@@ -104,7 +104,7 @@ class Log:
             handler = None
         if not handler:
             handler = self.add_std_handler(logger_name)
-        formatter = logging.Formatter(formatstring)
+        formatter = logging.Formatter(formatstring, datefmt)
         handler.setFormatter(formatter)
 
     def set_null_handler(self, name=None, top_level=True):
