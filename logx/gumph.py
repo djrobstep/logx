@@ -104,7 +104,10 @@ class Log:
             handler = None
         if not handler:
             handler = self.add_std_handler(logger_name)
-        formatter = logging.Formatter(formatstring, datefmt)
+        if datefmt:
+            formatter = logging.Formatter(formatstring, datefmt=datefmt)
+        else:
+            formatter = logging.Formatter(formatstring)
         handler.setFormatter(formatter)
 
     def set_null_handler(self, name=None, top_level=True):
@@ -132,6 +135,11 @@ class Log:
         try:
             self.get_handler(logger_name)
         except KeyError:
-            self.add_std_handler(logger_name)
+            try:
+                short_logger_name = logger_name.split('.')[0]
+                self.get_handler(short_logger_name)
+                logger_name = short_logger_name
+            except KeyError:
+                self.add_std_handler(logger_name)
         _logger = logging.getLogger(logger_name)
         return getattr(_logger, method)
