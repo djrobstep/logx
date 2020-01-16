@@ -136,9 +136,9 @@ class Log:
             self.get_handler(logger_name)
         except KeyError:
             try:
-                short_logger_name = logger_name.split(".")[0]
-                self.get_handler(short_logger_name)
-                logger_name = short_logger_name
+                top_level_logger_name = logger_name.split(".")[0]
+                self.get_handler(top_level_logger_name)
+                logger_name = top_level_logger_name
             except KeyError:
                 self.add_std_handler(logger_name)
         _logger = logging.getLogger(logger_name)
