@@ -136,7 +136,7 @@ class Log:
             self.get_handler(logger_name)
         except KeyError:
             try:
-                short_logger_name = logger_name.split('.')[0]
+                short_logger_name = logger_name.split(".")[0]
                 self.get_handler(short_logger_name)
                 logger_name = short_logger_name
             except KeyError:

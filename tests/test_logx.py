@@ -44,11 +44,10 @@ def test_set_format(caplog, capsys):
     formatstring = '{ "timestamp": "%(asctime)s", "severity": "%(levelname)s", "name": "%(name)s", "funcName": "%(funcName)s", "lineNo": "%(lineno)d", "message": "%(message)s"}'
     datefmt = "%Y-%m-%dT%I:%M:%SZ"
     log.set_format(formatstring, datefmt=datefmt)
-    log.debug('log stuff')
+    log.debug("log stuff")
     output = json.loads(capsys.readouterr().out)
-    assert datetime.strptime(output['timestamp'], datefmt) is not None
+    assert datetime.strptime(output["timestamp"], datefmt) is not None
     assert output.keys() == json.loads(formatstring).keys()
-
 
 
 def test_level_change_output(caplog, capsys):
