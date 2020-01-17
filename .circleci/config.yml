@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/circleci
     docker:
-      - image: circleci/python:3.7.3
+      - image: circleci/python:3.8.1
     steps:
       - checkout
       - restore_cache:
@@ -11,8 +11,8 @@ jobs:
       - run:
           name: Install poetry
           command: |
-            sudo pip3 install poetry
-            poetry config settings.virtualenvs.create false
+            sudo pip3 install poetry>=1.0
+            poetry config virtualenvs.create false
       - run:
           command: |
             python3 -m venv ~/.venv
@@ -39,7 +39,7 @@ jobs:
   publish:
     working_directory: ~/circleci
     docker:
-      - image: circleci/python:3.7.3
+      - image: circleci/python:3.8.1
     steps:
       - setup_remote_docker
       - checkout
@@ -48,8 +48,8 @@ jobs:
       - run:
           name: Install poetry, deps
           command: |
-            sudo pip3 install poetry
-            poetry config settings.virtualenvs.create false
+            sudo pip3 install poetry>=1.0
+            poetry config virtualenvs.create false
             python3 -m venv ~/.venv
             . ~/.venv/bin/activate
             poetry install
