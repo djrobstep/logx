@@ -127,19 +127,36 @@ class Log:
             _ for _ in logger.handlers if not isinstance(_, logging.NullHandler)
         ]
 
+    def get_logger_with_handler(self, logger_name):
+        """
+        Returns the form of logger_name, potentially converted in to top
+        level, that has a handler
+
+        Args:
+            logger_name (str): the expected name of the logger
+
+        Return:
+            str: The name of the logger that has a handler
+
+        Raises:
+            KeyError: When it can't find a logger with a handler by that name
+                in any form
+        """
+        try:
+            self.get_handler(logger_name)
+        except KeyError:
+            logger_name = logger_name.split(".")[0]
+            self.get_handler(logger_name)
+        return logger_name
+
     def __getattr__(self, method, *args, **kwargs):
         if method.startswith("_"):
             raise AttributeError
 
         logger_name = self.current_logger_name()
         try:
-            self.get_handler(logger_name)
+            logger_name = self.get_logger_with_handler(logger_name)
         except KeyError:
-            try:
-                top_level_logger_name = logger_name.split(".")[0]
-                self.get_handler(top_level_logger_name)
-                logger_name = top_level_logger_name
-            except KeyError:
-                self.add_std_handler(logger_name)
+            self.add_std_handler(logger_name)
         _logger = logging.getLogger(logger_name)
         return getattr(_logger, method)
